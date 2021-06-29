@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Fakometer</title>
+    <img src="https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg" alt="Italian Trulli">
+    <script src="popup.js"></script>
+    <style>
+      .loader {
+        text-align: center;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+      }
+      
+      /* Safari */
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      </style>
+  </head>
+  <body>
+    <h1 align="center">Fakometer</h1>
+    <p align="center">
+    <button onclick="add()" id="checkPage">Analize this page now!</button>
+    </p>
+  <p align="center">
+    <b><p id="result" align="center">  </p></b>
+    <div  id="loader"></div>
+  </p>
+
+  </body>
+</html>
