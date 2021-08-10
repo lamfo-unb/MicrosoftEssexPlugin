@@ -2,12 +2,17 @@ document.addEventListener("DOMContentLoaded", function (){
     document.querySelector("button").addEventListener("click",
     onclick, false)
 
+
     function onclick () {
         chrome.tabs.query({currentWindow: true, active:true},
             function (tabs) {
                 chrome.tabs.getSelected(null, function(tab) {
-                    document.getElementById("loader").classList.add('loader');
 
+                    document.getElementById("checkPage").innerHTML = "Analysing ...";
+
+                    var e = document.getElementById("detective");
+                    e.style.display = 'block';
+                    document.getElementById('detective').src='https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif'
                     
                     d = document;
                 
@@ -19,13 +24,7 @@ document.addEventListener("DOMContentLoaded", function (){
                     i.name = 'url';
                     i.value = tab.url;
 
-
-                    // f.action = 'http://127.0.0.1:5000/' + i.value;
-
-                    // f.appendChild(i);
                     d.body.appendChild(f);
-                    // f.submit();
-                    // chrome.tabs.sendMessage(tabs[0].id,f.submit())
 
                     function httpGetAsync(theUrl, callback) {
                         var xmlHttp = new XMLHttpRequest();
@@ -37,48 +36,37 @@ document.addEventListener("DOMContentLoaded", function (){
                         xmlHttp.send(null);
                     }
 
+                    
+
+
                     httpGetAsync("http://flasklamfo.ngrok.io/" + String(i.value).replace("https://", "<https>").replaceAll("/","<barra>"), function(response){
-                        // chrome.tabs.sendMessage(tabs[0].id,f.submit())
-                        // alert(response)
+
+                        var substringfalse = "FALSE";
+                        var substringtrue = "TRUE";
+
+                        if(response.includes(substringfalse)){
+                            document.getElementById('detective').src='https://www.motherjones.com/wp-content/uploads/2020/06/digital-literacy_2000.gif?w=1200&h=630&crop=1';
+                            document.getElementById("checkPage").style.display = "none";    
+                        }
+                        else if (response.includes(substringtrue)){
+                            document.getElementById('detective').src='https://images.squarespace-cdn.com/content/v1/5bca2930b10f255d8de05742/1545963864439-K3RWS3CB89DU8WJEF73J/true_false.gif';
+                            document.getElementById("checkPage").style.display = "none";    
+                        }
+                        else {
+                            document.getElementById('detective').src='https://i.gifer.com/1OkG.gif';
+                            document.getElementById("checkPage").style.display = "none";    
+                        }
+                
                         document.getElementById("result").innerHTML = response;
-                        document.getElementById("loader").classList.remove('loader'); 
                         
                     })
 
                     
-
-                    // var output = "Sum of two numbers is ";
-                    // document.getElementById("result").innerHTML = response;
-
+                    
+                    
                     
                     })
                     
             })
     }
 }, false)
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     var checkPageButton = document.getElementById('checkPage');
-//     checkPageButton.addEventListener('click', function() {
-  
-//       chrome.tabs.getSelected(null, function(tab) {
-//         d = document;
-  
-//         var f = d.createElement('form');
-//         f.action = 'http://gtmetrix.com/analyze.html?bm';
-//         f.method = 'post';
-//         var i = d.createElement('input');
-//         i.type = 'hidden';
-//         i.name = 'url';
-//         i.value = tab.url;
-//         f.appendChild(i);
-//         d.body.appendChild(f);
-//         f.submit();
-//         chrome.tabs.sendMessage(tabs[0].id,"hi")
-//       });
-//     }, false);
-//   }, false);
